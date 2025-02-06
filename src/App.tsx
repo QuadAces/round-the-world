@@ -1,9 +1,9 @@
 import { CameraControls } from "@react-three/drei";
 import "./styles.css";
 import { Canvas } from "@react-three/fiber";
-import { useFrame } from "@react-three/fiber";
-import { useSpring, animated, config } from "@react-spring/three";
-import React, { useRef, useLayoutEffect, useState, useEffect } from "react";
+
+import { useSpring, animated} from "@react-spring/three";
+import { useRef, useState} from "react";
 import * as THREE from "three";
 import "@react-three/fiber";
 
