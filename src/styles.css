@@ -1,0 +1,16 @@
+.App {
+    font-family: sans-serif;
+    text-align: center;
+  }
+  
+  body {
+    margin: 0;
+  }
+  
+  html,
+  body,
+  #root,
+  canvas {
+    height: 100%;
+  }
+  
