@@ -1,3 +1,4 @@
+// @ts-nocheck
 import {
     CameraControls,
     Float,
@@ -19,7 +20,6 @@ import faceThree from "./inverted-dice-3.svg";
 import faceFour from "./inverted-dice-4.svg";
 import faceFive from "./inverted-dice-5.svg";
 import faceSix from "./inverted-dice-6.svg";
-import { SimplexNoise } from "three/examples/jsm/Addons.js";
 
 export function CanvasPlane() {
   const [phase, setPhase] = useState(0);
@@ -115,10 +115,7 @@ export function CanvasPlane() {
     return (
         <>
             <CameraControls />
-            {/* @ts-ignore */}
             <Stage
-                // shadows={false}
-                // controls={ref}
                 adjustCamera
                 preset="rembrandt"
                 intensity={1}
@@ -128,16 +125,13 @@ export function CanvasPlane() {
                 <animated.mesh
                     geometry={sphereGeometry}
                     ref={sphereRef}
-                    //@ts-ignore
                     scale={sphereScale}
-                    //@ts-ignore
                     position={spherePosition}
                     onClick={(e) => {
                         e.stopPropagation();
                         setPhase(1);
                     }}
                 >
-                    {/* @ts-ignore */}
                     <meshBasicMaterial
                         attach="material"
                         map={sphereTexture}
@@ -175,18 +169,6 @@ export function CanvasPlane() {
                         material={materials.green}
                     />
                 </animated.group>
-                {/* <animated.mesh
-                    onClick={(e) => {
-                      e.stopPropagation()
-                      setPhase(3)}}
-                    ref={cylinderRef}
-                    //@ts-ignore
-                    scale={cylinderScale}
-                    geometry={cylinderGeometry}
-                >
-                    {/* @ts-ignore */}
-                {/* <meshPhongMaterial attach="material" color="red" />
-                </animated.mesh> */}
                 <animated.group
                 position={[0, -1.5, 0]}
                     ref={cylinderRef}
@@ -210,7 +192,6 @@ export function CanvasPlane() {
                     />
                 </animated.group>
                 <animated.mesh
-                    //@ts-ignore
                     scale={squareScale}
                     ref={boxRef}
                     onClick={(e) => {
@@ -227,8 +208,6 @@ export function CanvasPlane() {
                     geometry={boxGeometry}
                     material={boxMaterials}
                 >
-                    {/* @ts-ignore */}
-                    {/* <meshFaceMaterial attach="material" color="red" /> */}
                 </animated.mesh>
                 <animated.mesh
                     geometry={topTrianglegeometry}
@@ -240,17 +219,13 @@ export function CanvasPlane() {
                             setPhase(6);
                         }, 100);
                     }}
-                    //@ts-ignore
                     scale={intermittentTriangleScale}
-                    //@ts-ignore
                     position={trianglePositionY}
                 >
-                    {/* @ts-ignore */}
                     <meshPhongMaterial attach="material" color="blue" />
                 </animated.mesh>
                 <animated.mesh
                     geometry={bottomTrianglegeometry}
-                    //@ts-ignore
                     scale={intermittentTriangleScale}
                     onClick={() => {
                         setPhase(5);
@@ -258,24 +233,20 @@ export function CanvasPlane() {
                             setPhase(6);
                         }, 100);
                     }}
-                    //@ts-ignore
                     position={reverseTrianglePositionY}
                 >
-                    {/* @ts-ignore */}
                     <meshPhongMaterial attach="material" color="blue" />
                 </animated.mesh>
                 <animated.mesh
 
                     geometry={octahedronGeometry}
                     ref={octahedronRef}
-                    //@ts-ignore
                     scale={octahedronScale}
                     onClick={(e) => {
                         e.stopPropagation();
                         setPhase(0);
                     }}
                 >
-                    {/* @ts-ignore */}
                     <meshBasicMaterial transparent={true} opacity={0.6} attach="material" color="#3f7b9d" />
                 </animated.mesh>
             </Stage>
