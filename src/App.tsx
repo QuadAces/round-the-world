@@ -190,10 +190,12 @@ export function CanvasPlane() {
                                 </div>
                             ),
                             6: (
-                              <div style={{ paddingTop: "80%" }}>
+                              <div style={{ paddingTop: "50%" }}>
                                 And just like this shard of "glass," if you need a <b>sharp</b> {" "}
                                 programmer to join your team, I'm the person to do it!
-                                Have a good one!
+                                <br/>
+                                <br/>
+                                Anyway that's it! I hope you enjoyed && hopefully I'll see you somewhere around the world!
                                 <br/>
                                 (Click to continue)
                               </div>
