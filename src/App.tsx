@@ -19,7 +19,7 @@ import "@mantine/core/styles/Input.css";
 import "@mantine/core/styles/InlineInput.css";
 import "@mantine/core/styles/Flex.css";
 import "@mantine/core/styles/FloatingIndicator.css";
-import { useSpring, animated } from "@react-spring/three";
+import { useSpring, animated, a } from "@react-spring/three";
 import { useRef, useState } from "react";
 import * as THREE from "three";
 import "@react-three/fiber";
@@ -97,9 +97,7 @@ export function CanvasPlane() {
     useFrame((state, delta) => {
         sphereRef.current!.rotation.y += 0.01;
         torusRef.current!.rotation.y -= 0.01;
-        boxRef.current!.rotation.y += 0.01;
-        boxRef.current!.rotation.x += 0.02;
-        boxRef.current!.rotation.z += 0.03;
+
         octahedronRef.current!.rotation.y -= 0.01;
         octahedronRef.current!.rotation.x -= 0.02;
         octahedronRef.current!.rotation.z -= 0.03;
@@ -134,6 +132,75 @@ export function CanvasPlane() {
     });
     return (
         <>
+            <Html center style={{ width: "100vw", height: "100vh" }}>
+                <p
+                    style={{
+                        fontFamily: "sans-serif",
+                        fontWeight: "lighter",
+                        fontSize: "1.25rem",
+                        position: "absolute",
+                        width: "30vw",
+                        paddingLeft: "5vw",
+                        height: "100vh",
+                        top: "20%",
+                    }}
+                >
+                    {
+                        {
+                            0: (
+                                <>
+                                    Hi! I'm Stuart! I'm a{" "}
+                                    {Math.floor(
+                                        (new Date() - new Date("12/01/2005")) /
+                                            (1000 * 60 * 60 * 24 * 365.25)
+                                    )}{" "}
+                                    year old studying computer science at UNSW!
+                                    I've been to England, Canada, Australia,
+                                    Wales, Spain, Indonesia & UAE
+                                    <br />
+                                    <br />
+                                    (Click the Earth to continue!)
+                                    <br />
+                                </>
+                            ),
+                            1: (
+                                <div style={{ paddingTop: "80%" }}>
+                                    I think my brain rot has taken over...
+                                    <br/>
+                                    (Click to continue)
+                                </div>
+                            ),
+                            2: (
+                                <div style={{ paddingTop: "80%" }}>
+                                    December 1st! I'll be waiting!
+                                    <br/>
+                                    (Click to continue)
+                                </div>
+                            ),
+                            3: (
+                                <div style={{ paddingTop: "50%" }}>
+                                    I really enjoy game theory, and by extention
+                                    I'm a huge poker fan (my github username is
+                                    quadAces) - or really just any tabletop game
+                                    as a matter of fact! Among other things, I also love
+                                    BJJ, sailing, chess, entreprenurship and making things!
+                                    <br/>
+                                    (Click to continue)
+                                </div>
+                            ),
+                            6: (
+                              <div style={{ paddingTop: "80%" }}>
+                                And just like this shard of "glass," if you need a <b>sharp</b> {" "}
+                                programmer to join your team, I'm the person to do it!
+                                Have a good one!
+                                <br/>
+                                (Click to continue)
+                              </div>
+                            )
+                        }[phase]
+                    }
+                </p>
+            </Html>
             <Html center>
                 <h1
                     style={{
