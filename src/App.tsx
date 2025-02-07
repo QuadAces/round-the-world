@@ -1,14 +1,24 @@
 // @ts-nocheck
-import {
-    CameraControls,
-    Float,
-    OrthographicCamera,
-    Stage,
-    useGLTF,
-} from "@react-three/drei";
+import "@mantine/core/styles.css";
+import { CameraControls, Float, Html, Stage, useGLTF } from "@react-three/drei";
 import "./styles.css";
 import { Canvas, useFrame, useLoader } from "@react-three/fiber";
-
+import { useDisclosure } from "@mantine/hooks";
+import { Modal, Button, MantineProvider } from "@mantine/core";
+import "@mantine/core/styles/ScrollArea.css";
+import "@mantine/core/styles/UnstyledButton.css";
+import "@mantine/core/styles/VisuallyHidden.css";
+import "@mantine/core/styles/Paper.css";
+import "@mantine/core/styles/Popover.css";
+import "@mantine/core/styles/CloseButton.css";
+import "@mantine/core/styles/Group.css";
+import "@mantine/core/styles/Loader.css";
+import "@mantine/core/styles/Overlay.css";
+import "@mantine/core/styles/ModalBase.css";
+import "@mantine/core/styles/Input.css";
+import "@mantine/core/styles/InlineInput.css";
+import "@mantine/core/styles/Flex.css";
+import "@mantine/core/styles/FloatingIndicator.css";
 import { useSpring, animated } from "@react-spring/three";
 import { useRef, useState } from "react";
 import * as THREE from "three";
@@ -22,24 +32,31 @@ import faceFive from "./inverted-dice-5.svg";
 import faceSix from "./inverted-dice-6.svg";
 
 export function CanvasPlane() {
-  const [phase, setPhase] = useState(0);
-  const text = [
-    "A round (the) world",
-    "A holy doughnut",
-    "A gimicky birthday cake",
-    "A lucky dice",
-    "A sharp glass shard that brings us back to",
-  ] 
+    const [phase, setPhase] = useState(0);
+    const primaryColor = "var(--mantine-color-cyan-4)";
+    const secondaryColor = "var(--mantine-color-teal-4)";
     const boxRef = useRef<THREE.Mesh>(null);
     const boxGeometry = new THREE.BoxGeometry(1, 1, 1);
-    const boxMaterials = [ 
-      new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load(faceOne) }),
-      new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load(faceTwo) }),
-      new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load(faceThree) }),
-      new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load(faceFour) }),
-      new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load(faceFive) }),
-      new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load(faceSix) }),
-    ]
+    const boxMaterials = [
+        new THREE.MeshBasicMaterial({
+            map: new THREE.TextureLoader().load(faceOne),
+        }),
+        new THREE.MeshBasicMaterial({
+            map: new THREE.TextureLoader().load(faceTwo),
+        }),
+        new THREE.MeshBasicMaterial({
+            map: new THREE.TextureLoader().load(faceThree),
+        }),
+        new THREE.MeshBasicMaterial({
+            map: new THREE.TextureLoader().load(faceFour),
+        }),
+        new THREE.MeshBasicMaterial({
+            map: new THREE.TextureLoader().load(faceFive),
+        }),
+        new THREE.MeshBasicMaterial({
+            map: new THREE.TextureLoader().load(faceSix),
+        }),
+    ];
     const sphereRef = useRef<THREE.Mesh>(null);
     const sphereGeometry = new THREE.SphereGeometry(1, 32);
     const sphereTexture = useLoader(THREE.TextureLoader, earthImg);
@@ -80,9 +97,12 @@ export function CanvasPlane() {
     useFrame((state, delta) => {
         sphereRef.current!.rotation.y += 0.01;
         torusRef.current!.rotation.y -= 0.01;
-        octahedronRef.current!.rotation.y += 0.01;
-        octahedronRef.current!.rotation.x += 0.01;
-        octahedronRef.current!.rotation.z += 0.01;
+        boxRef.current!.rotation.y += 0.01;
+        boxRef.current!.rotation.x += 0.02;
+        boxRef.current!.rotation.z += 0.03;
+        octahedronRef.current!.rotation.y -= 0.01;
+        octahedronRef.current!.rotation.x -= 0.02;
+        octahedronRef.current!.rotation.z -= 0.03;
     });
 
     const { position: spherePosition, scale: sphereScale } = useSpring({
@@ -114,12 +134,83 @@ export function CanvasPlane() {
     });
     return (
         <>
-            <CameraControls />
-            <Stage
-                adjustCamera
-                preset="rembrandt"
-                intensity={1}
-            >
+            <Html center>
+                <h1
+                    style={{
+                        fontFamily: "sans-serif",
+                        fontWeight: "lighter",
+                        width: "100vw",
+                        textAlign: "center",
+                        fontSize: "2rem",
+                        height: "100vh",
+                        paddingTop: "10vh",
+                    }}
+                >
+                    {/* Hey if you're reading this, I really love using this datastructure as a case statement */}
+                    {
+                        {
+                            0: (
+                                <>
+                                    A&nbsp;
+                                    <span style={{ color: primaryColor }}>
+                                        round&nbsp;
+                                    </span>
+                                    (the)&nbsp;
+                                    <span style={{ color: secondaryColor }}>
+                                        world
+                                    </span>
+                                </>
+                            ),
+                            1: (
+                                <>
+                                    A&nbsp;
+                                    <span style={{ color: primaryColor }}>
+                                        "cooked"&nbsp;
+                                    </span>
+                                    <span style={{ color: secondaryColor }}>
+                                        blackhole
+                                    </span>
+                                </>
+                            ),
+                            2: (
+                                <>
+                                    A&nbsp;
+                                    <span style={{ color: primaryColor }}>
+                                        gimicky&nbsp;
+                                    </span>
+                                    <span style={{ color: secondaryColor }}>
+                                        birthday cake
+                                    </span>
+                                </>
+                            ),
+                            3: (
+                                <>
+                                    A&nbsp;
+                                    <span style={{ color: primaryColor }}>
+                                        lucky&nbsp;
+                                    </span>
+                                    <span style={{ color: secondaryColor }}>
+                                        dice
+                                    </span>
+                                </>
+                            ),
+                            6: (
+                                <>
+                                    A&nbsp;
+                                    <span style={{ color: primaryColor }}>
+                                        sharp&nbsp;
+                                    </span>
+                                    <span style={{ color: secondaryColor }}>
+                                        glass shard
+                                    </span>
+                                </>
+                            ),
+                        }[phase]
+                    }
+                </h1>
+            </Html>
+
+            <Stage adjustCamera={false} preset="rembrandt" intensity={1}>
                 <ambientLight intensity={10} />
 
                 <animated.mesh
@@ -145,7 +236,7 @@ export function CanvasPlane() {
                     scale={tarusScale}
                     onClick={(e) => {
                         e.stopPropagation();
-                        setPhase(2);
+                        setPhase((phase) => phase + 1);
                     }}
                 >
                     <mesh
@@ -170,7 +261,7 @@ export function CanvasPlane() {
                     />
                 </animated.group>
                 <animated.group
-                position={[0, -1.5, 0]}
+                    position={[0, -1.5, 0]}
                     ref={cylinderRef}
                     scale={cylinderScale}
                     onClick={(e) => {
@@ -198,17 +289,15 @@ export function CanvasPlane() {
                         e.stopPropagation();
                         setPhase(4);
                         setTimeout(() => {
-                          setPhase(5);
-                          setTimeout(() => {
-                            setPhase(6);
-                        }, 100);
-                      }, 500);
-
+                            setPhase(5);
+                            setTimeout(() => {
+                                setPhase(6);
+                            }, 100);
+                        }, 500);
                     }}
                     geometry={boxGeometry}
                     material={boxMaterials}
-                >
-                </animated.mesh>
+                ></animated.mesh>
                 <animated.mesh
                     geometry={topTrianglegeometry}
                     onClick={(e) => {
@@ -238,7 +327,6 @@ export function CanvasPlane() {
                     <meshPhongMaterial attach="material" color="blue" />
                 </animated.mesh>
                 <animated.mesh
-
                     geometry={octahedronGeometry}
                     ref={octahedronRef}
                     scale={octahedronScale}
@@ -247,7 +335,12 @@ export function CanvasPlane() {
                         setPhase(0);
                     }}
                 >
-                    <meshBasicMaterial transparent={true} opacity={0.6} attach="material" color="#3f7b9d" />
+                    <meshStandardMaterial
+                        transparent={true}
+                        opacity={0.8}
+                        attach="material"
+                        color="#3f7b9d"
+                    />
                 </animated.mesh>
             </Stage>
         </>
@@ -255,9 +348,40 @@ export function CanvasPlane() {
 }
 
 export default function App() {
+    const [opened, { open, close }] = useDisclosure(true);
     return (
-        <Canvas>
-            <CanvasPlane />
-        </Canvas>
+        <>
+            <MantineProvider>
+                <Modal
+                    opened={opened}
+                    onClose={close}
+                    title="Welcome 'around the world!'"
+                >
+                    So I've made this as an entry portfolio to UNSW's
+                    devsoc.&nbsp; The theme is{" "}
+                    <span style={{ color: "var(--mantine-color-cyan-4)" }}>
+                        "Around THE World"&nbsp;
+                    </span>
+                    - and I suspect that everyone will be making a map about
+                    where they've travelled and been.
+                    <br /> <br />I wanted to do something a bit more unique, so
+                    I took the prompt as &nbsp;
+                    <span style={{ color: "var(--mantine-color-teal-4)" }}>
+                        "A Round World"&nbsp;
+                    </span>
+                    (yes, the Earth is NOT flat!), and just switch up and tween
+                    some 3D models!
+                    <br />
+                    Enjoy!
+                    <br />
+                    <br />
+                    Stuart 😎 (https://github.com/QuadAces)
+                </Modal>
+                <Canvas style={{ width: "100vw", height: "100vh", zIndex: 0 }}>
+                    <CameraControls />
+                    <CanvasPlane />
+                </Canvas>
+            </MantineProvider>
+        </>
     );
 }
