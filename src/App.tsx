@@ -146,6 +146,7 @@ export function CanvasPlane() {
                     }}
                 >
                     {
+                      //* Note I love using this as a switch statement for jsx
                         {
                             0: (
                                 <>
